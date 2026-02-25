@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice Address Input</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #ffc600;
+      margin: 0;
+      flex-direction: column;
+    }
+    .words {
+      border: 10px solid black;
+      padding: 2rem;
+      width: 60vw;
+      min-height: 40vh;
+      background: white;
+      font-size: 1.5rem;
+      overflow-y: auto;
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Speak Your Address</h1>
+  <div class="words"></div>
+
+  <script>
+    function speak(text) {
+      window.speechSynthesis.cancel();
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.rate = 1;
+      msg.pitch = 1;
+      msg.lang = 'en-US';
+      window.speechSynthesis.speak(msg);
+    }
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SpeechRecognition();
+    rec.interimResults = true;
+    rec.continuous = true;
+    rec.lang = 'en-US';
+    const words = document.querySelector(".words");
+    let p = document.createElement('p');
+    words.appendChild(p);
+    let finalAddress = "";
+    rec.addEventListener("result", e => {
+      const transcript = Array.from(e.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('');
+      p.textContent = transcript;
+      if (e.results[0].isFinal) {
+        finalAddress += transcript + " ";
+        p = document.createElement('p');
+        words.appendChild(p);
+
+        speak(`You said: ${finalAddress}`);
+      }
+      if (transcript.toLowerCase().includes("done")) {
+        speak("Address recorded successfully. Redirecting to clothes page.");
+        setTimeout(() => {
+          window.location.href = "clothes.html";
+        }, 4000);
+      }
+    });
+
+    rec.addEventListener("end", rec.start);
+    rec.start();
+
+    speak("Please start speaking your address. Say done when you finish.");
+  </script>
+</body>
+</html>

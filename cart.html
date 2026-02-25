@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Cart</title>
+<style>
+    body {
+        margin: 0;
+        font-family: sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .cart-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 30px;
+        padding: 10px;
+        flex-grow: 1;
+    }
+
+    .cart-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: white;
+        padding: 24px; /* increased by 20% */
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        width: 100%;
+        min-height: 120px; /* increased by 20% */
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .cart-item:hover {
+        transform: scale(1.05);
+    }
+
+    .remove-btn {
+        background-color: #ff4c4c;
+        border: none;
+        color: white;
+        font-size: 24px; /* increased by 20% */
+        padding: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-right: 20px;
+        flex-shrink: 0;
+        width: 120px; /* increased */
+    }
+
+    .item-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .item-name {
+        font-size: 22px; /* increased by 20% */
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .item-price {
+        font-size: 19px; /* increased by 20% */
+    }
+
+    .cart-footer {
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .total-price {
+        font-size: 34px; /* increased by 20% */
+        font-weight: bold;
+    }
+
+    .purchase-btn {
+        background-color: #28a745;
+        border: none;
+        color: white;
+        font-size: 34px; /* increased by 20% */
+        padding: 18px 36px; /* increased by 20% */
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+</style>
+</head>
+<body>
+<h1>My Cart</h1>
+<div class="cart-container" id="cart-list"></div>
+
+<div class="cart-footer">
+    <div class="total-price" id="total-price">Total: $0</div>
+    <button class="purchase-btn" id="purchase-btn">Purchase Now</button>
+</div>
+
+<script src="cart.js"></script>
+</body>
+</html>
